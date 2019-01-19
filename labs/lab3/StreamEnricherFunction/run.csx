@@ -19,7 +19,7 @@ public static void Run(string myEventHubMessage, ILogger log, out string outputE
     // log.LogInformation($"{nameof(customer_comments)} = {customer_comments}");
 
     // Get our API root URL and API key from application settings - you should have created these settings
-    string textAnalyticsUrlRoot = Environment.GetEnvironmentVariable("TextAnalyticsApiUrlRoot");
+    string textAnalyticsUrlRoot = Environment.GetEnvironmentVariable("TextAnalyticsApiEndpoint");
     string textAnalyticsApiKey = Environment.GetEnvironmentVariable("TextAnalyticsApiKey");
     // log.LogInformation($"{nameof(textAnalyticsUrlRoot)} = {textAnalyticsUrlRoot}");
     // log.LogInformation($"{nameof(textAnalyticsApiKey)} = {textAnalyticsApiKey}");
