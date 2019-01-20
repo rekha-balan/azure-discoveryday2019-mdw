@@ -38,7 +38,6 @@ namespace Sender
 			}
 		}
 
-		public int customer_sentiment { get; set; } // -2 very bad, -1 bad, 0 neutral, 1 good, 2 very good
 		public string customer_comments { get; set; }
 	}
 }

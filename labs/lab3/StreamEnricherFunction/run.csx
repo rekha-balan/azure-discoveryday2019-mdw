@@ -8,10 +8,11 @@ using pelazem.azure.cognitive.textanalytics;
 
 public static void Run(string myEventHubMessage, ILogger log, out string outputEventHubMessage)
 {
-    log.LogInformation($"StreamPlus triggered by new Event Hub message.");
+    log.LogInformation($"Azure Function StreamEnricher triggered by new Event Hub message:");
     log.LogInformation(myEventHubMessage);
 
     // Parse the entire message which should be valid JSON, otherwise this will fail
+	// TODO add try/catch and appropriate notification
     JObject jMessage = JObject.Parse(myEventHubMessage);
 
     // Get the customer's comments from the message JSON

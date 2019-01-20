@@ -96,7 +96,6 @@ namespace Sender
 			message.improvement_surcharge = 0.6;
 			message.ehail_fee = 0.99;
 
-			message.customer_sentiment = 2;
 			message.customer_comments = "The trip took too long. The taxi was uncomfortable: it was too cold, the seats were dirty, and the car smelled bad. The driver was a purple two-headed alien with a spitting problem, which was mildly disconcerting to say the least! Overall it was gross.";
 
 			return JsonConvert.SerializeObject(message, _jsonSerializerSettings);
