@@ -34,7 +34,7 @@ namespace Sender
 		{
 			get
 			{
-				return this.fare_amount + this.extra + this.mta_tax + this.tip_amount + this.tolls_amount + this.improvement_surcharge + this.ehail_fee;
+				return Math.Round(this.fare_amount + this.extra + this.mta_tax + this.tip_amount + this.tolls_amount + this.improvement_surcharge + this.ehail_fee, 2);
 			}
 		}
 

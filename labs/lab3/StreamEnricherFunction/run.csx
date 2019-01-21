@@ -8,8 +8,8 @@ using pelazem.azure.cognitive.textanalytics;
 
 public static void Run(string myEventHubMessage, ILogger log, out string outputEventHubMessage)
 {
-    log.LogInformation($"Azure Function StreamEnricher triggered by new Event Hub message:");
-    log.LogInformation(myEventHubMessage);
+    // log.LogInformation($"Azure Function StreamEnricher triggered by new Event Hub message:");
+    // log.LogInformation(myEventHubMessage);
 
     // Parse the entire message which should be valid JSON, otherwise this will fail
 	// TODO add try/catch and appropriate notification
@@ -30,34 +30,32 @@ public static void Run(string myEventHubMessage, ILogger log, out string outputE
 
     // Get text analytics results from evaluating customer comments
     // As we use an out variable to forward to the next Event Hub, we cannot use async/await, hence using GetAwaiter().GetResult()
-    TextAnalyticsServiceResult taResult = svc.ProcessAsync(customer_comments).GetAwaiter().GetResult();
+    TextAnalyticsServiceResult taResult = svc.ProcessAsync(customer_comments, "en", true, false, false, false).GetAwaiter().GetResult();
 
     // If we got a response from text analytics, add important information into the JSON structure we got from the inbound message
     if (taResult.Responses.Count > 0)
     {
-        log.LogInformation($"Got {taResult.Responses.Count.ToString()} responses");
-        
-        TextAnalyticsResponse response = taResult.Responses.First();
+        TextAnalyticsResponse response = taResult.Responses[0];
 
         // Sentiment score between 0 (negative) and 1 (positive)
         jMessage["textanalytics_customer_sentiment_score"] = response.SentimentScore;
 
         // Key phrases in the customer's comments
-        jMessage["textanalytics_customer_key_phrases"] = new JArray(response.KeyPhrases);
+        // jMessage["textanalytics_customer_key_phrases"] = new JArray(response.KeyPhrases);
 
         // What language(s) was/were detected in the customer's comments
-        jMessage["textanalytics_customer_detected_languages"] = (JArray)JToken.FromObject(response.DetectedLanguages);
+        // jMessage["textanalytics_customer_detected_languages"] = (JArray)JToken.FromObject(response.DetectedLanguages);
 
         // What entities were detected in the customer's comments
-        jMessage["textanalytics_customer_entities"] = (JArray)JToken.FromObject(response.Entities);
+        // jMessage["textanalytics_customer_entities"] = (JArray)JToken.FromObject(response.Entities);
 
         // Any errors that text analytics may have encountered analyzing the customer's comments
-        jMessage["textanalytics_errors"] = (JArray)JToken.FromObject(taResult.Errors);
+        // jMessage["textanalytics_errors"] = (JArray)JToken.FromObject(taResult.Errors);
     }
 
     // We now write the augmented message to the outbound Event Hub so it can be forwarded downstream
     outputEventHubMessage = jMessage.ToString();
 
     // Echo what was sent onward to the console
-    log.LogInformation(outputEventHubMessage);
+    // log.LogInformation(outputEventHubMessage);
 }
