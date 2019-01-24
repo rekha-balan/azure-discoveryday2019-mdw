@@ -1,7 +1,8 @@
 {
   "profiles": {
     "Sender": {
-      "commandName": "Project"
+      "commandName": "Project",
+      "commandLineArgs": "Endpoint=sb://azdiscday2019.servicebus.windows.net/;SharedAccessKeyName=ehinbound_Send;SharedAccessKey=WozYZMLUW58LEpQwUNTld6V38GWlRuujBYI4fHPJzrA=;EntityPath=ehinbound"
     }
   }
 }
