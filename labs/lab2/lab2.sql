@@ -29,6 +29,13 @@ create table dbo.trips_all
 );
 go
 
+create index ix_trip_year_trip_month
+on dbo.trips_all 
+(
+	trip_year, trip_month
+);
+go
+
 create table dbo.trips_new
 (
 	trip_type int null,
@@ -59,6 +66,13 @@ create table dbo.trips_new
 	total_amount float null,
 	textanalytics_customer_sentiment_score float null,
 	customer_comments nvarchar(max) null
+);
+go
+
+create index ix_trip_year_trip_month
+on dbo.trips_new 
+(
+	trip_year, trip_month
 );
 go
 
